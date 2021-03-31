@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,8 +21,8 @@ namespace TipCalculator
         {
             //This will initialize input textboxes and output labels.
             textBox1.Text = "$0.00";
-            textBox2.Text = "0%";
-            textBox3.Text = "0";
+            textBox2.Text = "1%";
+            textBox3.Text = "1";
             label5.Text = "$0.00";
             label6.Text = "$0.00";
         }
@@ -134,7 +134,13 @@ namespace TipCalculator
             }
             int tip = Int16.Parse(a);
             int numberOfPersons = Int16.Parse(textBox3.Text);
-
+            //This will show an error if value of number of persons is zero.
+            if (numberOfPersons == 0)
+            {
+                string message = "Enter Value Other than 0";
+                string title = "Wrong Input";
+                MessageBox.Show(message, title);
+            }
             //This will calcuate and display the desired output.
 
             double totalTip = (bill * tip) / 100;
@@ -150,6 +156,27 @@ namespace TipCalculator
             //This will add dollar($) symbol at the beginning of the bill amount.
             a = "$" + a;
             textBox1.Text = a;
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            string a = textBox2.Text;
+            //This will remove the percentage(%) symbol from the string so that it can be converted in integer.
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (a[i] == '%')
+                {
+                    a = a.Replace("%", "");
+                }
+            }
+            int b = Int16.Parse(a);
+            //This will show an error if value is zero.
+            if (b == 0)
+            {
+                string message = "Enter Value Other than 0";
+                string title = "Wrong Input";
+                MessageBox.Show(message, title);
+            }
         }
     }
 }
